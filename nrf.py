@@ -203,5 +203,5 @@ while True:
         GPIO.output(18, 1)
 
         # Display data
-        printpayload(payload)
+        print printpayload(payload)
     time.sleep(1)
