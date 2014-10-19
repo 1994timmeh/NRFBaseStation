@@ -186,7 +186,7 @@ while True:
     # Print the radio channel on the radio
     print "Channel on Radio: " + str(resp[1])
 
-    if GPIO.input(5) == 1:
+    if GPIO.input(5) == 0:
         print "Receiving data..."
         # Data is ready to be received so receive it
 
