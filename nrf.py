@@ -187,6 +187,7 @@ while True:
     print "Channel on Radio: " + str(resp[1])
 
     if GPIO.input(5) == 1:
+        print "Receiving data..."
         # Data is ready to be received so receive it
 
         # Set CE to 0, moving into IDLE state
