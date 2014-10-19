@@ -16,7 +16,7 @@ def spamchan():
         sendPayload([0x12])
 
 # ########################################################################################################
-#						#		#					#	
+#						#		#					#
 #	AUTHOR: TIM HADWEN			# PINOUT	#	THIS IS AN UNCODED PACKET	#
 #	PROJECT: CSSE4010 RADIO BASE STATION	#################	BASESTATION FOR CSSE4010	#
 #	DATE: 10th October 2014			#  10 - MOSI	#					#
@@ -164,15 +164,29 @@ GPIO.output(18, 1)
 
 while True:
     print "========================================="
+
+    # Put radio in idle mode to check status regs
+    GPIO.output(18, 0)
+
+    # Use this trick to get both status and config regs
     resp = spi.xfer2([0x00, 0x00])
+
+    # Print the config reg
     printconfig(resp[1])
+
+    # Print the status reg
     printstatus(resp[0])
 
     # Check the channel on the radio (Prints out in decimal)
     resp = spi.xfer2([0x05, 0x00])
+
+    # Put radio back into receive mode
+    GPIO.output(18, 1)
+
+    # Print the radio channel on the radio
     print "Channel on Radio: " + str(resp[1])
 
-    if GPIO.input(5) == 0:
+    if GPIO.input(5) == 1:
         # Data is ready to be received so receive it
 
         # Set CE to 0, moving into IDLE state
@@ -190,4 +204,3 @@ while True:
         # Display data
         printpayload(payload)
     time.sleep(1)
-  
