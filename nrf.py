@@ -196,7 +196,7 @@ while True:
         spi.xfer2([0x20 | 0x07, 0b01001110])
 
         # Read data
-        payload = spi.xfer2([0b10100000] + bytepayload32())
+        payload = spi.xfer2([0b01100001] + bytepayload32())
 
         # Set CE to 1, to continue receiving data if required
         GPIO.output(18, 1)
