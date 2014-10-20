@@ -156,7 +156,6 @@ spi.xfer2([0x26, 0x06])
 
 # Write TX_ADDR
 #spi.xfer2([0x20 | 0x10, 0x7A, 0x56, 0x34, 0x12, 0x00])
-
 spi.xfer2([0x20 | 0x10, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E])
 
 # Write RX_ADDR
@@ -184,13 +183,16 @@ while True:
     printstatus(resp[0])
 
     # Check the channel on the radio (Prints out in decimal)
-    resp = spi.xfer2([0x05, 0x00])
+    #resp = spi.xfer2([0x05, 0x00])
+
+    resp = spi.xfer2([0x00 | 0x0A, 0x7A, 0x56, 0x34, 0x12, 0x00])
+    print "RX_ADDR: " + str(resp[1]) + " " + str(resp[2]) + " " + str(resp[3]) + " " + str(resp[4]) + " " + str(resp[5])
 
     # Put radio back into receive mode
     GPIO.output(18, 1)
 
     # Print the radio channel on the radio
-    print "Channel on Radio: " + str(resp[1])
+    #print "Channel on Radio: " + str(resp[1])
 
     if GPIO.input(5) == 0:
         print "Receiving data..."
