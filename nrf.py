@@ -126,7 +126,8 @@ GPIO.setmode(GPIO.BCM)
 # Init CE Pin at Pin number 18
 # Changed from 15 due to serial
 GPIO.setup(18, GPIO.OUT)
-
+GPIO.setup(21, GPIO.OUT)
+GPIO.output(21, 0)
 GPIO.output(18, 0)
 
 # IRQ LINE init
@@ -195,7 +196,8 @@ while True:
     #print "Channel on Radio: " + str(resp[1])
 
     if GPIO.input(5) == 0:
-        print "Receiving data..."
+        GPIO.output(21, 1)
+	print "Receiving data..."
         # Data is ready to be received so receive it
 
         # Set CE to 0, moving into IDLE state
@@ -212,4 +214,6 @@ while True:
 
         # Display data
         print printpayload(payload)
-    time.sleep(1)
+    time.sleep(0.05)
+    GPIO.output(21, 0)
+    time.sleep(0.5)
