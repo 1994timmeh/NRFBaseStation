@@ -178,10 +178,10 @@ while True:
     resp = spi.xfer2([0x00, 0x00])
 
     # Print the config reg
-    #printconfig(resp[1])
+    printconfig(resp[1])
 
     # Print the status reg
-    #printstatus(resp[0])
+    printstatus(resp[0])
 
     # Check the channel on the radio (Prints out in decimal)
     resp = spi.xfer2([0x05, 0x00])
@@ -190,7 +190,7 @@ while True:
     GPIO.output(18, 1)
 
     # Print the radio channel on the radio
-    #print "Channel on Radio: " + str(resp[1])
+    print "Channel on Radio: " + str(resp[1])
 
     if GPIO.input(5) == 0:
         print "Receiving data..."
