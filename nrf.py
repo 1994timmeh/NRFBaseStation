@@ -59,8 +59,11 @@ def txmode():
 
 # Prints the payload in hex
 def printpayload(payload):
-    return ''.join('0x{:02x} '.format(x) for x in payload)
-
+    output = "Received payload: "
+    for i in range(0, 31):
+	output += hex(payload[i] & 0x0F)[2:].upper() 
+	#return ''.join('0x{:02x} '.format(x) for x in payload)
+    return output
 
 # Sends the payload given in data
 def sendPayload(data):
@@ -175,13 +178,13 @@ while True:
     GPIO.output(18, 0)
 
     # Use this trick to get both status and config regs
-    #resp = spi.xfer2([0x00, 0x00])
+    resp = spi.xfer2([0x00, 0x00])
 
     # Print the config reg
-    #printconfig(resp[1])
+    printconfig(resp[1])
 
     # Print the status reg
-    #printstatus(resp[0])
+    printstatus(resp[0])
 
     # Check the channel on the radio (Prints out in decimal)
     #resp = spi.xfer2([0x05, 0x00])
@@ -209,12 +212,20 @@ while True:
 
         # Read data
         payload = spi.xfer2([0b01100001] + bytepayload32())
+	
+	txmode()
+	
+	time.sleep(1)
+	sendPayload([0xff, 0xff, 0xff] + payload)
+	
+	time.sleep(0.5)
+	rxmode()
 
         # Set CE to 1, to continue receiving data if required
         GPIO.output(18, 1)
-
+	
         # Display data
         print printpayload(payload[1:])
-    time.sleep(0.05)
-    GPIO.output(21, 0)
     time.sleep(0.5)
+    GPIO.output(21, 0)
+    time.sleep(0.05)
