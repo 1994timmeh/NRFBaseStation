@@ -84,7 +84,7 @@ def sendPayload(data):
 # Returns a 32 byte payload of 0x00
 def bytepayload32():
     array = []
-    for i in range(0, 34):
+    for i in range(0, 31):
         array.append(0x00)
     return array
 
@@ -175,19 +175,19 @@ while True:
     GPIO.output(18, 0)
 
     # Use this trick to get both status and config regs
-    resp = spi.xfer2([0x00, 0x00])
+    #resp = spi.xfer2([0x00, 0x00])
 
     # Print the config reg
-    printconfig(resp[1])
+    #printconfig(resp[1])
 
     # Print the status reg
-    printstatus(resp[0])
+    #printstatus(resp[0])
 
     # Check the channel on the radio (Prints out in decimal)
     #resp = spi.xfer2([0x05, 0x00])
 
-    resp = spi.xfer2([0x00 | 0x0A, 0x7A, 0x56, 0x34, 0x12, 0x00])
-    print "RX_ADDR: " + hex(resp[1]) + " " + hex(resp[2]) + " " + hex(resp[3]) + " " + hex(resp[4]) + " " + hex(resp[5])
+    #resp = spi.xfer2([0x00 | 0x0A, 0x7A, 0x56, 0x34, 0x12, 0x00])
+    #print "RX_ADDR: " + hex(resp[1]) + " " + hex(resp[2]) + " " + hex(resp[3]) + " " + hex(resp[4]) + " " + hex(resp[5])
 
     # Put radio back into receive mode
     GPIO.output(18, 1)
@@ -197,7 +197,8 @@ while True:
 
     if GPIO.input(5) == 0:
         GPIO.output(21, 1)
-	print "Receiving data..."
+	print "================================"
+	#print "Receiving data..."
         # Data is ready to be received so receive it
 
         # Set CE to 0, moving into IDLE state
@@ -213,7 +214,7 @@ while True:
         GPIO.output(18, 1)
 
         # Display data
-        print printpayload(payload)
+        print printpayload(payload[1:])
     time.sleep(0.05)
     GPIO.output(21, 0)
     time.sleep(0.5)
