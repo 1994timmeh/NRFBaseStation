@@ -186,7 +186,7 @@ while True:
     #resp = spi.xfer2([0x05, 0x00])
 
     resp = spi.xfer2([0x00 | 0x0A, 0x7A, 0x56, 0x34, 0x12, 0x00])
-    print "RX_ADDR: " + str(resp[1]) + " " + str(resp[2]) + " " + str(resp[3]) + " " + str(resp[4]) + " " + str(resp[5])
+    print "RX_ADDR: " + hex(resp[1]) + " " + hex(resp[2]) + " " + hex(resp[3]) + " " + hex(resp[4]) + " " + hex(resp[5])
 
     # Put radio back into receive mode
     GPIO.output(18, 1)
