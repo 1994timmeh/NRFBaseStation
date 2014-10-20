@@ -1,20 +1,3 @@
-import spidev
-import time
-import sys
-import RPi.GPIO as GPIO
-
-# Silly functions
-
-# Sends a payload on every channel (Used for debugging)
-def spamchan():
-    chan = 0x00
-    while (1):
-        chan += 1
-        setrfch(chan)
-        if (chan > 0xff):
-            chan = 0
-        sendPayload([0x12])
-
 # ########################################################################################################
 #						#		#					#
 #	AUTHOR: TIM HADWEN			# PINOUT	#	THIS IS AN UNCODED PACKET	#
@@ -26,6 +9,24 @@ def spamchan():
 #						#  18 - RADIOCE	#					#
 #						#   5 - IRQ	#					#
 #########################################################################################################
+
+import spidev
+import time
+import sys
+import RPi.GPIO as GPIO
+
+# You will need to install spidev and the RPI.GPIO libs
+# to run this python program
+
+# Sends a payload on every channel (Used for debugging)
+def spamchan():
+    chan = 0x00
+    while (1):
+        chan += 1
+        setrfch(chan)
+        if (chan > 0xff):
+            chan = 0
+        sendPayload([0x12])
 
 # Predefined base address
 baseaddr = [0xA7, 0x65, 0x43, 0x21]
@@ -154,7 +155,12 @@ spi.xfer2([0x26, 0x06])
 #spi.xfer2([0x20 | 0x00, 0b00110011])
 
 # Write TX_ADDR
-spi.xfer2([0x20 | 0x10, 0x7A, 0x56, 0x34, 0x12, 0x00])
+#spi.xfer2([0x20 | 0x10, 0x7A, 0x56, 0x34, 0x12, 0x00])
+
+spi.xfer2([0x20 | 0x10, 0xE7, 0xE7, 0xE7, 0xE7, 0xE7])
+
+# Write RX_ADDR
+spi.xfer2([0x20 | 0x0A, 0x10, 0x7A, 0x56, 0x34, 0x12, 0x00]);
 
 # Read TX_ADDR
 resp = spi.xfer2([0x00 | 0x10, 0x00, 0x00, 0x00, 0x00, 0x00])
