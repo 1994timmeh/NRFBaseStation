@@ -1,7 +1,7 @@
 # ########################################################################################################
 #						#		#					#
 #	AUTHOR: TIM HADWEN			# PINOUT	#	THIS IS AN UNCODED PACKET	#
-#	PROJECT: CSSE4010 RADIO BASE STATION	#################	BASESTATION FOR CSSE4010	#
+#	PROJECT: RADIO BASE STATION		#################	BASESTATION FOR NOTHING 	#
 #	DATE: 10th October 2014			#  10 - MOSI	#					#
 #	WEBSITE: www.timhadwen.com		#   9 - MISO	#	WILL SEND PACKETS EVERY SECOND	#
 #	LANGUAGE: PYTHON 3.3			#  11 - SCLK	#	AND DISPLAY RECEIVED PACKETS	#
